@@ -31,7 +31,10 @@ module Dotenv
           value = value.gsub('\n', "\n").gsub(/\\(.)/, '\1') if $1 == '"'
           self[key] = value
         elsif line !~ /\A\s*(?:#.*)?\z/ # not comment or blank line
-          raise FormatError, "Line #{line.inspect} doesn't match format"
+          #raise FormatError, "Line #{line.inspect} doesn't match format"
+          File.open("log/dotenv.log", 'w') do |f|
+            f.puts("Line '#{line.inspect}' doesn't match format")
+          end
         end
       end
     end
